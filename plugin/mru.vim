@@ -487,7 +487,7 @@ function! s:MRU_Edit_File(filename, sanitized)
             " Current buffer has unsaved changes or is a special buffer or is
             " the preview window.  The 'hidden' option is also not set.
             " So open the file in a new window.
-            exe 'split ' . esc_fname
+            exe 'vsplit ' . esc_fname
         else
             " The current file can be replaced with the selected file.
             exe 'edit ' . esc_fname
@@ -560,7 +560,7 @@ function! s:MRU_Window_Edit_File(fname, multi, edit_type, open_type)
         " Edit the file in a new vertically split window above the previous
         " window
         wincmd p
-        exe 'belowright vnew ' . esc_fname
+        exe 'vsp ' . esc_fname
     elseif a:open_type ==# 'newtab' || g:MRU_Open_File_Use_Tabs
 	call s:MRU_Open_File_In_Tab(a:fname, esc_fname)
     elseif a:open_type ==# 'preview'
@@ -612,7 +612,7 @@ function! s:MRU_Window_Edit_File(fname, multi, edit_type, open_type)
                 " Current buffer has unsaved changes or is a special buffer or
                 " is the preview window.  So open the file in a new window
                 if a:edit_type ==# 'edit'
-                    exe 'split ' . esc_fname
+                    exe 'vsplit ' . esc_fname
                 else
                     exe 'sview ' . esc_fname
                 endif
@@ -769,17 +769,17 @@ function! s:MRU_Open_Window(...)
                 \ :call <SID>MRU_Select_File_Cmd('edit,useopen')<CR>
     vnoremap <buffer> <silent> <CR>
                 \ :call <SID>MRU_Select_File_Cmd('edit,useopen')<CR>
-    nnoremap <buffer> <silent> o
+    nnoremap <buffer> <silent> O
                 \ :call <SID>MRU_Select_File_Cmd('edit,newwin_horiz')<CR>
-    vnoremap <buffer> <silent> o
+    vnoremap <buffer> <silent> O
                 \ :call <SID>MRU_Select_File_Cmd('edit,newwin_horiz')<CR>
     nnoremap <buffer> <silent> <S-CR>
                 \ :call <SID>MRU_Select_File_Cmd('edit,newwin_horiz')<CR>
     vnoremap <buffer> <silent> <S-CR>
                 \ :call <SID>MRU_Select_File_Cmd('edit,newwin_horiz')<CR>
-    nnoremap <buffer> <silent> O
+    nnoremap <buffer> <silent> o
                 \ :call <SID>MRU_Select_File_Cmd('edit,newwin_vert')<CR>
-    vnoremap <buffer> <silent> O
+    vnoremap <buffer> <silent> o
                 \ :call <SID>MRU_Select_File_Cmd('edit,newwin_vert')<CR>
     nnoremap <buffer> <silent> t
                 \ :call <SID>MRU_Select_File_Cmd('edit,newtab')<CR>
