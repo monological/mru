@@ -344,6 +344,10 @@ function! s:MRU_LoadList()
         elseif s:MRU_files[0] =~# '^#'
             " Remove the comment line
             call remove(s:MRU_files, 0)
+            " Remove current open file
+            if s:MRU_files[0] == expand('%:p') 
+                call remove(s:MRU_files, 0)
+            endif
         else
             " Unsupported format
             let s:MRU_files = []
@@ -941,12 +945,12 @@ function! s:MRU_add_files_to_menu(prefix, file_list)
         let esc_dir_name = escape(dir_name, ".\\" . s:esc_filename_chars)
         let esc_dir_name = substitute(esc_dir_name, '&', '&&', 'g')
 
-	let menu_path = '&File.&Recent\ Files.' . a:prefix . esc_fname .
-		    \ '\ (' . esc_dir_name . ')'
-	let esc_mfname = s:MRU_escape_filename(fname)
-        exe 'anoremenu <silent> ' . menu_path .
-                    \ " :call <SID>MRU_Edit_File('" . esc_mfname . "', 1)<CR>"
-	exe 'tmenu ' . menu_path . ' Edit file ' . esc_mfname
+        let menu_path = '&File.&Recent\ Files.' . a:prefix . esc_fname .
+                \ '\ (' . esc_dir_name . ')'
+        let esc_mfname = s:MRU_escape_filename(fname)
+            exe 'anoremenu <silent> ' . menu_path .
+                        \ " :call <SID>MRU_Edit_File('" . esc_mfname . "', 1)<CR>"
+        exe 'tmenu ' . menu_path . ' Edit file ' . esc_mfname
     endfor
 endfunction
 
